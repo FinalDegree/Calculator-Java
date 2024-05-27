@@ -9,7 +9,7 @@ public class Main {
     static char div = '/';
     static String[] Arr = new String[0];
     
-    public static void GetCaseFlagAndSplitString(String input) throws Exception{
+    public static void GetCaseFlagAndSplitString(String input) {
         Arr = input.split("[-+*/]");
         if (input.contains(String.valueOf(plus))) {
             caseFlag = "+";
@@ -20,7 +20,7 @@ public class Main {
         } else if (input.contains(String.valueOf(div))) {
             caseFlag = "/";
         } else {
-            throw new Exception("Строка не является математической операцией");
+            throw new IllegalArgumentException("Строка не является математической операцией");
         } 
     }
 
@@ -79,19 +79,19 @@ public class Main {
         return allRomansNum[numb];
     }
 
-    public static void CheckExceptions(String[] newString) throws Exception {
+    public static void CheckExceptions(String[] newString) {
          if (CheckArabiсNum(newString[0]) && CheckArabiсNum(newString[1])) {
             int i = Integer.parseInt(newString[0]);
             int k = Integer.parseInt(newString[1]);
-            if (i < 1 || i > 10 || k < 1 || k > 10) throw new Exception("Введите два целых числа арабскими или римскими числами от 1 до 10 .");
+            if (i < 1 || i > 10 || k < 1 || k > 10) throw new IllegalArgumentException("Введите два целых числа арабскими или римскими числами от 1 до 10 .");
             }
          }
 
-    public static void CheckRomanExeption(int i) throws Exception{
-        if (i <= 0) throw new Exception("B римской системе нет отрицательных чисел и нуля");
+    public static void CheckRomanException(int i) {
+        if (i <= 0) throw new IllegalArgumentException("B римской системе нет отрицательных чисел и нуля");
     }
     
-    public static String calc(String input) throws Exception {
+    public static String calc(String input) {
         int a = 0;
         int b = 0;
         int result = 0;
@@ -115,7 +115,7 @@ public class Main {
             firstNum = GetIntForRomanNum(Arr[0]);
             secondNum = GetIntForRomanNum(Arr[1]);
             result = GetResultOfNums(firstNum, secondNum);
-            CheckRomanExeption(result);
+            CheckRomanException(result);
             if (result != 0 && result <= 10 && result > 0){
                 resultStr+= GetCypherOfRomanNum(result);
             } else if (result > 10 && result < 40){
@@ -143,11 +143,11 @@ public class Main {
                 resultStr += "C";
             }
         } else {
-            throw new Exception("Введите два одинаковых числа одной из систем счисления: арабскими (1,2,3,4,5...10) или римскими числами (I, II, III, IV, V...X) от 1 до 10 включительно.");
+            throw new IllegalArgumentException("Введите два одинаковых числа одной из систем счисления: арабскими (1,2,3,4,5...10) или римскими числами (I, II, III, IV, V...X) от 1 до 10 включительно.");
         }
         return resultStr;
     }
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
         System.out.println(calc(str));
