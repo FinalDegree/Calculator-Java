@@ -8,7 +8,8 @@ public class Main {
     static char mul = '*';
     static char div = '/';
     static String[] Arr = new String[0];
-    public static void GetCaseFlagAndSplitString(String input) {
+    
+    public static void GetCaseFlagAndSplitString(String input) throws Exception{
         Arr = input.split("[-+*/]");
         if (input.contains(String.valueOf(plus))) {
             caseFlag = "+";
@@ -19,13 +20,8 @@ public class Main {
         } else if (input.contains(String.valueOf(div))) {
             caseFlag = "/";
         } else {
-            try {
-                throw new Exception();
-            } catch (Exception e){
-                System.out.println("Строка не является математической операцией");
-                System.exit(0);
-            }
-        }
+            throw new Exception("Строка не является математической операцией");
+        } 
     }
 
     public static boolean CheckArabiсNum(String x){
@@ -76,37 +72,26 @@ public class Main {
                 i = x;
             }
         }
-        return String.valueOf(i);
+       return String.valueOf(i);
     }
 
     public static String GetCypherOfRomanNum(int numb) {
         return allRomansNum[numb];
     }
 
-    public static void CheckExceptions(String[] newString) {
-        if (CheckArabiсNum(newString[0]) && CheckArabiсNum(newString[1])) {
+    public static void CheckExceptions(String[] newString) throws Exception {
+         if (CheckArabiсNum(newString[0]) && CheckArabiсNum(newString[1])) {
             int i = Integer.parseInt(newString[0]);
             int k = Integer.parseInt(newString[1]);
-            if (i < 1 || i > 10 || k < 1 || k > 10) {
-                try {
-                    throw new Exception();
-                } catch (Exception e) {
-                    System.out.println("Введите два целых числа арабскими или римскими числами от 1 до 10 .");
-                    System.exit(0);
-                }
+            if (i < 1 || i > 10 || k < 1 || k > 10) throw new Exception("Введите два целых числа арабскими или римскими числами от 1 до 10 .");
             }
-        }
+         }
+
+    public static void CheckRomanExeption(int i) throws Exception{
+        if (i <= 0) throw new Exception("B римской системе нет отрицательных чисел и нуля");
     }
-    public static void CheckRomanExeption(int i){
-        if (i <= 0){
-            try {
-                throw new Exception();
-            } catch (Exception e){
-                System.out.println("B римской системе нет отрицательных чисел и нуля");
-            }
-        }
-    }
-    public static String calc(String input){
+    
+    public static String calc(String input) throws Exception {
         int a = 0;
         int b = 0;
         int result = 0;
@@ -158,12 +143,7 @@ public class Main {
                 resultStr += "C";
             }
         } else {
-            try {
-                throw new Exception();
-            } catch (Exception e) {
-                System.out.println("Введите два одинаковых числа одной из систем счисления: арабскими (1,2,3,4,5...10) или римскими числами (I, II, III, IV, V...X) от 1 до 10 включительно.");
-                System.exit(0);
-            }
+            throw new Exception("Введите два одинаковых числа одной из систем счисления: арабскими (1,2,3,4,5...10) или римскими числами (I, II, III, IV, V...X) от 1 до 10 включительно.");
         }
         return resultStr;
     }
