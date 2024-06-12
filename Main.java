@@ -1,27 +1,25 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static String[] allRomansNum = new String[]{"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
     public static String caseFlag = null;
-    public static char plus = '+';
-    static char minus = '-';
-    static char mul = '*';
-    static char div = '/';
     static String[] Arr = new String[0];
-    
+
     public static void GetCaseFlagAndSplitString(String input) {
         Arr = input.split("[-+*/]");
-        if (input.contains(String.valueOf(plus))) {
+        if (input.contains("+")) {
             caseFlag = "+";
-        } else if (input.contains(String.valueOf(minus))) {
+        } else if (input.contains("-")) {
             caseFlag = "-";
-        } else if (input.contains(String.valueOf(mul))) {
+        } else if (input.contains("*")) {
             caseFlag = "*";
-        } else if (input.contains(String.valueOf(div))) {
+        } else if (input.contains("/")) {
             caseFlag = "/";
         } else {
             throw new IllegalArgumentException("Строка не является математической операцией");
-        } 
+        }
     }
 
     public static boolean CheckArabiсNum(String x){
@@ -72,32 +70,24 @@ public class Main {
                 i = x;
             }
         }
-       return String.valueOf(i);
-    }
-
-    public static String GetCypherOfRomanNum(int numb) {
-        return allRomansNum[numb];
+        return String.valueOf(i);
     }
 
     public static void CheckExceptions(String[] newString) {
-         if (CheckArabiсNum(newString[0]) && CheckArabiсNum(newString[1])) {
+        if (CheckArabiсNum(newString[0]) && CheckArabiсNum(newString[1])) {
             int i = Integer.parseInt(newString[0]);
             int k = Integer.parseInt(newString[1]);
             if (i < 1 || i > 10 || k < 1 || k > 10) throw new IllegalArgumentException("Введите два целых числа арабскими или римскими числами от 1 до 10 .");
-            }
-         }
+        }
+    }
 
     public static void CheckRomanException(int i) {
         if (i <= 0) throw new IllegalArgumentException("B римской системе нет отрицательных чисел и нуля");
     }
-    
-    public static String calc(String input) {
-        int a = 0;
-        int b = 0;
-        int result = 0;
 
+    public static String calc(String input) {
+        int result = 0;
         String firstNum, secondNum;
-        String RomanResultNumber = "";
         String resultStr = "";
 
         input = input.replaceAll("\\s", "");
@@ -116,31 +106,24 @@ public class Main {
             secondNum = GetIntForRomanNum(Arr[1]);
             result = GetResultOfNums(firstNum, secondNum);
             CheckRomanException(result);
-            if (result != 0 && result <= 10 && result > 0){
-                resultStr+= GetCypherOfRomanNum(result);
-            } else if (result > 10 && result < 40){
-                int count = result / 10;
-                int reminder = result % 10;
-                for (int i = 0; i < count; i++){
-                    resultStr += "X";
+            int nums[] = new int[]{100, 50, 40, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+            Map<Integer, String> dict = new HashMap<>();
+            {
+                dict.put(100, "C");dict.put(50, "L");dict.put(40, "XL");dict.put(10, "X");dict.put(9, "IX");dict.put(8, "VIII");
+                dict.put(7, "VII");dict.put(6, "VI");dict.put(5, "V");dict.put(4, "IV");dict.put(3, "III");dict.put(2, "II");dict.put(1, "I");
+            }
+            int keyOfMap = 0;
+            while (result != 0) {
+                for (int i = 0; i < nums.length; i++) {
+                    int x = 0;
+                    x = result / nums[i];
+                    if (x > 0) {
+                        keyOfMap = nums[i];
+                        resultStr += dict.get(keyOfMap);
+                        result -= keyOfMap;
+                        break;
+                    }
                 }
-                resultStr += GetCypherOfRomanNum(reminder);
-            } else if (result >= 40 && result < 50){
-                resultStr += "XL";
-                int reminder = result - 40;
-                resultStr += GetCypherOfRomanNum(reminder);
-            } else if (result >= 50 && result < 90){
-                resultStr += "L";
-                int count = (result - 50) / 10;
-                for (int i = 0; i < count; i++) {
-                    resultStr += "X";
-                }
-                int reminder = (result - 50) % 10;
-                resultStr += GetCypherOfRomanNum(reminder);
-            } else if (result >= 90 && result < 100){
-                resultStr += "XC";
-            } else if (result == 100) {
-                resultStr += "C";
             }
         } else {
             throw new IllegalArgumentException("Введите два одинаковых числа одной из систем счисления: арабскими (1,2,3,4,5...10) или римскими числами (I, II, III, IV, V...X) от 1 до 10 включительно.");
