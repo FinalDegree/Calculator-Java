@@ -63,7 +63,7 @@ public class Main {
         return result;
     }
 
-    public static String GetIntForRomanNum(String str) {
+    public static String RomanToArabic(String str) {
         int i = 0;
         for(int x = 0; x < allRomansNum.length; x++){
             if (allRomansNum[x].equals(str)){
@@ -102,14 +102,14 @@ public class Main {
             return str;
         }
         else if (CheckRomanNum(Arr[0]) && CheckRomanNum(Arr[1])) {
-            firstNum = GetIntForRomanNum(Arr[0]);
-            secondNum = GetIntForRomanNum(Arr[1]);
+            firstNum = RomanToArabic(Arr[0]);
+            secondNum = RomanToArabic(Arr[1]);
             result = GetResultOfNums(firstNum, secondNum);
             CheckRomanException(result);
-            int nums[] = new int[]{100, 50, 40, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+            int nums[] = new int[]{100, 90, 50, 40, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
             Map<Integer, String> dict = new HashMap<>();
             {
-                dict.put(100, "C");dict.put(50, "L");dict.put(40, "XL");dict.put(10, "X");dict.put(9, "IX");dict.put(8, "VIII");
+                dict.put(100, "C");dict.put(90, "XC");dict.put(50, "L");dict.put(40, "XL");dict.put(10, "X");dict.put(9, "IX");dict.put(8, "VIII");
                 dict.put(7, "VII");dict.put(6, "VI");dict.put(5, "V");dict.put(4, "IV");dict.put(3, "III");dict.put(2, "II");dict.put(1, "I");
             }
             int keyOfMap = 0;
