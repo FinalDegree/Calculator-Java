@@ -51,7 +51,7 @@ public class Main {
         String resultString = "";
         input = input.replaceAll("\\s", "");
         GetCaseFlagAndSplitString(input);
-        if (IsArabicNum(elements[0]) && IsArabicNum(elements[1]) && elements.length < 3) return String.valueOf(GetResultOfNums(elements[0], elements[1]);
+        if (IsArabicNum(elements[0]) && IsArabicNum(elements[1]) && elements.length < 3) return String.valueOf(GetResultOfNums(elements[0], elements[1]));
         else if (IsRomanNum(elements[0]) && IsRomanNum(elements[1])) {
             result = GetResultOfNums(GetIntForRomanNum(elements[0]), GetIntForRomanNum(elements[1]));
             if (result <= 0) throw new IllegalArgumentException("B римской системе нет отрицательных чисел и нуля");
